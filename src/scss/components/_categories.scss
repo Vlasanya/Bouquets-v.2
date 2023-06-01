@@ -1,0 +1,99 @@
+@import '../variables';
+
+.categories {
+  width: 100%;
+  position: relative;
+  @media (max-width: 1050px) {
+    width: auto;
+   
+  }
+  ul {
+    // display: flex;
+    // height: 100%;
+    // @media (max-width: 800px) {
+    //   display: none;
+    // }
+   
+
+
+    li {
+      background-color: #f9f9f9;
+      padding: 13px 30px;
+      border-radius: 30px;
+      margin-right: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.1s ease-in-out;
+      @include noselect();
+
+      &:hover {
+        background-color: darken(#f9f9f9, 2%);
+      }
+
+      &:active {
+        background-color: darken(#f9f9f9, 5%);
+      }
+
+      &.active {
+        background-color: #282828;
+        color: #fff;
+      }
+    }
+  }
+}
+
+
+.burger--menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+}
+.burger-bar {
+  width: 4em;
+  height: 0.5em;
+  background-color: $orange;
+  border-radius: 0.5em;
+
+}
+.menu {
+    display: flex;
+    width: auto;
+
+    @media (max-width: 846px) {
+      // width: 50%;
+      height: 80vh;
+      flex-direction: column;
+      position: absolute;
+      top: 40px;
+    }
+    
+}
+.hidden {
+  display: none;
+}
+// .visible {
+//   display: inherit;
+// }
+.burger-bar.clicked:nth-child(1) {
+   transform: rotate(45deg) translate(0.75em 1.25em);
+    transition: ease-out 0.5s;
+}
+.burger-bar.clicked:nth-child(2) {
+  transform: scale(0.1);
+   transition: ease-out 0.5s;
+}
+.burger-bar.clicked:nth-child(3) {
+  transform: rotate(135deg) translate(-0.5em 1em);
+   transition: ease-out 0.5s;
+}
+
+.burger-bar.unclicked {
+  transform: rotate(0) translate(0);
+  transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
+}
+@media (min-width: 847px) {
+  .burger--menu {
+    display: none;
+  }
+  
+}

@@ -1,0 +1,30 @@
+.root {
+  position: relative;
+}
+
+.input {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 8px 15px;
+  width: 350px;
+  border-radius: 15px;
+  font-size: 16px;
+  color: rgb(105, 57, 23);
+}
+.input:focus {
+  border: 1px solid rgba(105, 57, 23, 0.5);
+}
+
+.icon {
+  opacity: 0.5;
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  fill: #693917;
+}
+
+.iconClose {
+  cursor: pointer;
+}
+.iconClose:hover {
+  opacity: 0.8;
+}/*# sourceMappingURL=Search.module.css.map */
