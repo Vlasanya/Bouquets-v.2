@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+
 
 import { Categories, Sort, BouquetBlock } from '../components';
 import Skeleton from "../components/BouquetBlock/Skeleton";
+import Pagination from "../components/pagination";
+import { SearchContext } from "../App";
 
-function Home({ searchValue }) {
+
+function Home() {
+  const {searchValue} = useContext(SearchContext);
   const [ items, setItems ] = useState([]);
   const [ isLoading, setIsLoading ] = useState(true);
   const [ sortType, setSortType ] = useState(
     { name: 'Popular', sortProperty: 'rating' }
   );
   const [ categoryId, setCategoryId ] = useState(0);
+  const [ currentPage, setCurrentPage ] = useState(1);
 
 
   useEffect(() => {
@@ -19,14 +25,14 @@ function Home({ searchValue }) {
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const search = searchValue ? `&search=${searchValue}` : '';
 
-      fetch(`https://646c67ff7b42c06c3b2b1a38.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}`,)
+      fetch(`https://646c67ff7b42c06c3b2b1a38.mockapi.io/items?page=${currentPage}&limit=3&${category}&sortBy=${sortBy}&order=${order}${search}`,)
       .then((res) => {
       return res.json()
         }).then((json) => {
           setItems(json);
           setIsLoading(false);
         })
-  }, [categoryId, sortType, searchValue]);
+  }, [categoryId, sortType, searchValue, currentPage]);
 
   const bouquets = items.map((obj) => (<BouquetBlock {...obj} key={obj.id} />));
   //filter((obj) => {
@@ -50,6 +56,7 @@ function Home({ searchValue }) {
           }
        
         </div>
+        <Pagination onChangePage={(num) => setCurrentPage(num) }/>
     </>
   )
 }
