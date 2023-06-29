@@ -1,19 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSort } from '../redux/slices/filterSlice';
 
-function Sort({ value, onChooseSort }) {
 
-  const list = [{ name: 'Popular DESC', sortProperty: '-rating' },
-                { name: 'Popular ASC', sortProperty: 'rating' }, 
-                { name: 'Price DESC', sortProperty: '-price' },
-                { name: 'Price ASC', sortProperty: 'price' },
-                { name: 'Alphabet ASC', sortProperty: 'name' }
-              ];
+export const list = [{ name: 'Popular DESC', sortProperty: '-rating' },
+  { name: 'Popular ASC', sortProperty: 'rating' }, 
+  { name: 'Price DESC', sortProperty: '-price' },
+  { name: 'Price ASC', sortProperty: 'price' },
+  { name: 'Alphabet ASC', sortProperty: 'name' }
+  ];
+function Sort() {
+  
+  const dispatch = useDispatch();
+  const sort = useSelector((state) => state.filter.sort);
+
+ 
   const [ isVisible, setIsVisible ] = useState(false);
   const openPopup = () => {
     setIsVisible(!isVisible);
   }
-  const onClickSortItem = (i) => {
-    onChooseSort(i);
+  const onClickSortItem = (obj) => {
+    dispatch(setSort(obj));
     setIsVisible(false);
   }
 
@@ -33,7 +40,7 @@ function Sort({ value, onChooseSort }) {
                 />
               </svg>
               <b>Sort by:</b>
-              <span onClick={() => openPopup()}>{value.name}</span>
+              <span onClick={() => openPopup()}>{sort.name}</span>
             </div>
             { 
             isVisible && (<div className="sort__popup">
@@ -41,7 +48,7 @@ function Sort({ value, onChooseSort }) {
                 {list.map((obj, i) => (
                   <li key={i} 
                       onClick={() => onClickSortItem(obj)}
-                      className={value.sortProperty === obj.sortProperty ? 'active' : ''}>{obj.name}</li>
+                      className={sort.sortProperty === obj.sortProperty ? 'active' : ''}>{obj.name}</li>
                 ))}
               </ul>
             </div>) }
